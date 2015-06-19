@@ -1,0 +1,59 @@
+<!-- Filename: index.html -->
+<!doctype html>
+
+<!DOCTYPE html> 
+<html ng-app="countItApp">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <title>Count It!</title> 
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.css" />
+	<script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
+
+  <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+  <script src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
+  <script src="countit.js"></script>
+</head> 
+
+<body ng-controller="CountItCtrl"> 
+
+<div data-role="page">
+
+  <div data-role="header" data-theme="b">
+    <h1>Count It!</h1>
+  </div><!-- /header -->
+
+  <div data-role="content" > 
+		<div ng-show="isLoggedIn()">
+			<ul data-role="listview" data-inset="true" data-split-icon="delete">
+				<li ng-repeat="item in items" >
+					<a href="#" ng-click="item.increaseCount()">
+						<h2>{{item.getTitle()}}</h2>
+						<span class="ui-li-count">{{item.getTimesCompleted()}}</span>
+					</a>
+					<a href="#" ng-click="removeItem(item)" data-rel="popup" data-position-to="window" data-transition="pop">Remove Item</a>
+				</li>
+			</ul>
+
+			<div style="clear: both; margin-top: 10px">
+				<input type="text" ng-model="itemTitle" placeholder="Enter item name" /> <input type="button" ng-click="addItem()" value="Add" />
+			</div>
+		</div>
+
+		<div ng-hide="isLoggedIn()">
+			Username: <input type="text" ng-model="username" />
+			Password: <input type="password" ng-model="password" />
+			<input type="button" ng-click="logIn()" value="Login" /> or <input type="button" ng-click="signUp()" value="Sign Up!" />
+		</div>
+	</div><!-- /content -->
+  
+  <div data-role="footer" data-theme="b">
+    <h4 ng-show="isLoggedIn()">Welcome {{getUsername()}}! <a href="#" ng-click="logout()">Logout</a></h4>
+  </div><!-- /footer -->
+  
+</div><!-- /page -->
+
+</body>
+</html>
